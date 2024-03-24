@@ -1,0 +1,73 @@
+version: "4.26.1"
+services:
+
+  mockup_web1:
+    build: .
+    image: jesnunez/practica4
+    ports:
+      - ${PORT_MOCK1}:${PORT_MOCK1}
+    env_file:
+      - .env
+    environment:
+      - NOMBRE_APP=$AMBIENTE
+      - PORT=${PORT_MOCK1}
+    networks:
+      - red-app
+    volumes:
+      - my-volume-compose:${VOLUME_DB}
+    depends_on:
+      - database
+
+  mockup_web2:
+    build: .
+    image: jesnunez/practica4
+    ports:
+      - ${PORT_MOCK2}:${PORT_MOCK2}
+    env_file:
+      - .env
+    environment:
+      - NOMBRE_APP=$AMBIENTE
+      - PORT=${PORT_MOCK2}
+    networks:
+      - red-app
+    volumes:
+      - my-volume-compose:${VOLUME_DB}
+    depends_on:
+      - database
+
+  mockup_web3:
+    build: .
+    image: jesnunez/practica4
+    ports:
+      - ${PORT_APP3}:${PORT_MOCK3}
+    env_file:
+      - .env
+    environment:
+      - NOMBRE_APP=$AMBIENTE
+      - PORT=${PORT_MOCK3}
+    networks:
+      - red-app
+    volumes:
+      - my-volume-compose:${VOLUME_DB}
+    depends_on:
+      - database
+
+  database:
+    image:
+      buildo/h2database
+    ports:
+      - ${PORT_DB}:9092
+    env_file:
+      - .env
+    volumes:
+      - ~/dato_h2_compose:/var/lib/h2
+      - volume:${VOLUME_DB}
+    networks:
+      - red-app
+
+networks:
+  red-app:
+
+volumes:
+  my-volume-compose:
+  volume:

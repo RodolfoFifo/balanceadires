@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html :: links"></span>
+    <span th:replace="base.html :: nav"></span>
+</head>
+<body>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div style="width: 90%" class="card my-5">
+            <div align="center" class="card-body my-5">
+                <div style="width: 70%"><h1>Lista Usuarios</h1><hr></div>
+                <span th:if="${usuario == 'admin'}">
+                    <div class="d-grid mt-2">
+                        <a href="/usuario/generar"  type="button" class="btn btn-success btn-block">Crear usuario</a>
+                    </div>
+                </span>
+                <table id="tabla" class="table table-bordered table-striped mt-2">
+                    <thead align="center">
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Roles</th>
+                        <span th:if="${usuario == 'admin'}">
+                            <th width="10%"></th>
+                        </span>
+                    </tr>
+                    </thead>
+                    <tbody align="center">
+                    <tr style="cursor: pointer"  th:each="u:${user}">
+
+                        <td th:text="${u.getUsername()}"></td>
+                        <td th:text="${u.getNombre()}"></td>
+                        <td th:text="${u.getNameRoles()}"></td>
+                        <span th:if="${usuario == 'admin'}">
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Modificar Role</button>
+                                    <div class="dropdown-menu">
+                                        <a th:href="'/cambiar/role?user=' + ${u.getUsername()} + '&rol=ROLE_USER'" class="dropdown-item" selected>USUARIO</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </span>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

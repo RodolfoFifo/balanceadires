@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html::links"></span>
+    <span th:replace="base.html::nav"></span>
+</head>
+<body>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div style="width: 90%" class="card my-5">
+                <div align="center" class="card-body my-5">
+                    <span th:if="${window == 'EDITAR_MOCK'}">
+                        <div style="width: 70%"><h1 th:text="#{edit_form}">Editar Mock</h1><hr></div>
+                            <form id="form" method="post" th:action="'/mock/editar?id=' + ${id}">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-3 mb-3 mt-3 form-group">
+                                        <label th:text="#{access}" for="acceso" class="form-label">Método de acceso:</label>
+                                        <select class="form-select" id="acceso" name="acceso">
+                                            <option value="get" selected>Get</option>
+                                            <option value="post">Post</option>
+                                            <option value="put">Put</option>
+                                            <option value="patch">Patch</option>
+                                            <option value="delete">Delete</option>
+                                            <option value="options">Options</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-9 mb-3 mt-3 form-group">
+                                        <label th:text="#{endpoint}" for="endpoint" class="form-label">Endpoint:</label>
+                                        <input readonly style="background-color: lightgray" th:value="${mock.getEndpoint()}" type="text" class="form-control" id="endpoint" placeholder="Ingrese su endpoint" name="endpoint" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{header}" for="headers">HTTP Encabezado:</label>
+                                    <textarea placeholder='{&#10&#x09"X-Foo-Bar": "Hello World"&#10}' class="form-control" rows="6" id="headers" name="headers">[[${mock.getHttp_header()}]]</textarea>
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="form-group col-md-6 mb-3 mt-3">
+                                        <label th:text="#{status}" for="status" class="form-label">HTTP Estado:</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="100">100 - Continue</option>
+                                            <option value="101">101 - Switching Protocols</option>
+                                            <option value="102">102 - Processing</option>
+                                            <option value="200" selected="">200 - OK</option>
+                                            <option value="201">201 - Created</option>
+                                            <option value="202">202 - Accepted</option>
+                                            <option value="203">203 - Non-Authoritative Information</option>
+                                            <option value="204">204 - No Content</option>
+                                            <option value="205">205 - Reset Content</option>
+                                            <option value="206">206 - Partial Content</option>
+                                            <option value="207">207 - Multi-Status</option>
+                                            <option value="208">208 - Already Reported</option>
+                                            <option value="226">226 - IM Used</option>
+                                            <option value="300">300 - Multiple Choices</option>
+                                            <option value="301">301 - Moved Permanently</option>
+                                            <option value="302">302 - Found</option>
+                                            <option value="303">303 - See Other</option>
+                                            <option value="304">304 - Not Modified</option>
+                                            <option value="305">305 - Use Proxy</option>
+                                            <option value="306">306 - Switch Proxy</option>
+                                            <option value="307">307 - Temporary Redirect</option>
+                                            <option value="308">308 - Permanent Redirect</option>
+                                            <option value="400">400 - Bad Request</option>
+                                            <option value="401">401 - Unauthorized</option>
+                                            <option value="402">402 - Payment Required</option>
+                                            <option value="403">403 - Forbidden</option>
+                                            <option value="404">404 - Not Found</option>
+                                            <option value="405">405 - Method Not Allowed</option>
+                                            <option value="406">406 - Not Acceptable</option>
+                                            <option value="407">407 - Proxy Authentication Required</option>
+                                            <option value="408">408 - Request Timeout</option>
+                                            <option value="409">409 - Conflict</option>
+                                            <option value="410">410 - Gone</option>
+                                            <option value="411">411 - Length Required</option>
+                                            <option value="412">412 - Precondition Failed</option>
+                                            <option value="413">413 - Request Entity Too Large</option>
+                                            <option value="414">414 - Request-URI Too Long</option>
+                                            <option value="415">415 - Unsupported Media Type</option>
+                                            <option value="416">416 - Requested Range Not Satisfiable</option>
+                                            <option value="417">417 - Expectation Failed</option>
+                                            <option value="419">419 - Authentication Timeout</option>
+                                            <option value="420">420 - Enhance Your Calm</option>
+                                            <option value="422">422 - Unprocessable Entity</option>
+                                            <option value="423">423 - Locked</option>
+                                            <option value="424">424 - Failed Dependency</option>
+                                            <option value="424">424 - Method Failure</option>
+                                            <option value="426">426 - Upgrade Required</option>
+                                            <option value="428">428 - Precondition Required</option>
+                                            <option value="429">429 - Too Many Requests</option>
+                                            <option value="431">431 - Request Header Fields Too Large</option>
+                                            <option value="444">444 - No Response</option>
+                                            <option value="449">449 - Retry With</option>
+                                            <option value="450">450 - Blocked by Windows Parental Controls</option>
+                                            <option value="451">451 - Unavailable For Legal Reasons</option>
+                                            <option value="451">451 - Redirect</option>
+                                            <option value="494">494 - Request Header Too Large</option>
+                                            <option value="495">495 - Cert Error</option>
+                                            <option value="496">496 - No Cert</option>
+                                            <option value="497">497 - HTTP to HTTPS</option>
+                                            <option value="500">500 - Internal Server Error</option>
+                                            <option value="501">501 - Not Implemented</option>
+                                            <option value="502">502 - Bad Gateway</option>
+                                            <option value="503">503 - Service Unavailable</option>
+                                            <option value="504">504 - Gateway Timeout</option>
+                                            <option value="505">505 - HTTP Version Not Supported</option>
+                                            <option value="506">506 - Variant Also Negotiates</option>
+                                            <option value="507">507 - Insufficient Storage</option>
+                                            <option value="508">508 - Loop Detected</option>
+                                            <option value="509">509 - Bandwidth Limit Exceeded</option>
+                                            <option value="510">510 - Not Extended</option>
+                                            <option value="511">511 - Network Authentication Required</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3 mt-3">
+                                        <label th:text="#{content}" for="content" class="form-label">Tipo de Contenido:</label>
+                                        <select th:selected="${mock.getContent_type()}" class="form-select" id="content" name="content" required>
+                                            <option value="application/html" selected>application/html</option>
+                                            <option value="application/xml">application/xml</option>
+                                            <option value="application/json">application/json</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{body}" for="body">HTTP Cuerpo:</label>
+                                    <textarea placeholder='{&#10&#x09"msg": "Hello World"&#10}' class="form-control" rows="6" id="body" name="body">[[${mock.getHttp_body()}]]</textarea>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{name}" for="nombre" class="form-label">Nombre:</label>
+                                    <input th:value="${mock.getName()}" type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre" name="nombre">
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{description}" for="description">Descripcion:</label>
+                                    <textarea class="form-control" rows="4" id="description" name="description" placeholder="Ingrese la descripcion">[[${mock.getDescription()}]]</textarea>
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-1 mb-3 mt-5 pt-1 form-group">
+                                        <input class="form-check-input" type="checkbox" id="check" name="check">
+                                    </div>
+                                    <div class="col-md-5 mb-3 mt-3 form-group">
+                                        <label th:text="#{delay}" for="expiration" class="form-label">Demora:</label>
+                                        <input th:value="${mock.getDelay()}" style="background-color: lightgrey" min="0" type="number" class="form-control" id="delay" name="delay" value="0" readonly >
+                                    </div>
+                                    <div class="col-md-6 mb-3 mt-3 form-group">
+                                        <label th:text="#{expirate}" for="expiration" class="form-label">Expiracion:</label>
+                                        <select disabled class="form-select" id="expiration" name="expiration" >
+                                            <option value="0" selected>1 hora</option>
+                                            <option value="1">1 dia</option>
+                                            <option value="2">1 semana</option>
+                                            <option value="3">1 mes</option>
+                                            <option value="4" selected>1 año</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3 d-grid">
+                                    <button type="button" onclick="sendForm()" class="btn btn-success btn-block">Generar</button>
+                                    <button id="submit" type="submit" style="display: none" ></button>
+                                </div>
+                            </form>
+                    </span>
+                    <span th:unless="${window == 'EDITAR_MOCK'}">
+                        <div style="width: 70%"><h1 th:text="#{form_name}">Crear Mock</h1><hr></div>
+                            <form id="form" method="post" th:action="'/mock/generar?id=' + ${id}">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-3 mb-3 mt-3 form-group">
+                                        <label th:text="#{access}" for="acceso" class="form-label">Método de acceso:</label>
+                                        <select class="form-select" id="acceso" name="acceso">
+                                            <option value="GET" selected>Get</option>
+                                            <option value="POST">Post</option>
+                                            <option value="PUT">Put</option>
+                                            <option value="PATCH">Patch</option>
+                                            <option value="DELETE">Delete</option>
+                                            <option value="OPTIONS">Options</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-9 mb-3 mt-3 form-group">
+                                        <label th:text="#{endpoint}" for="endpoint" class="form-label"></label>
+                                        <input type="text" class="form-control" id="endpoint" placeholder="Ingrese su endpoint" name="endpoint" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{header}" for="headers">HTTP Encabezado:</label>
+                                    <textarea placeholder='{&#10&#x09"X-Foo-Bar": "Hello World"&#10}' class="form-control" rows="6" id="headers" name="headers"></textarea>
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="form-group col-md-6 mb-3 mt-3">
+                                        <label th:text="#{status}" for="status" class="form-label">HTTP Estado:</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="100">100 - Continue</option>
+                                            <option value="101">101 - Switching Protocols</option>
+                                            <option value="102">102 - Processing</option>
+                                            <option value="200" selected="">200 - OK</option>
+                                            <option value="201">201 - Created</option>
+                                            <option value="202">202 - Accepted</option>
+                                            <option value="203">203 - Non-Authoritative Information</option>
+                                            <option value="204">204 - No Content</option>
+                                            <option value="205">205 - Reset Content</option>
+                                            <option value="206">206 - Partial Content</option>
+                                            <option value="207">207 - Multi-Status</option>
+                                            <option value="208">208 - Already Reported</option>
+                                            <option value="226">226 - IM Used</option>
+                                            <option value="300">300 - Multiple Choices</option>
+                                            <option value="301">301 - Moved Permanently</option>
+                                            <option value="302">302 - Found</option>
+                                            <option value="303">303 - See Other</option>
+                                            <option value="304">304 - Not Modified</option>
+                                            <option value="305">305 - Use Proxy</option>
+                                            <option value="306">306 - Switch Proxy</option>
+                                            <option value="307">307 - Temporary Redirect</option>
+                                            <option value="308">308 - Permanent Redirect</option>
+                                            <option value="400">400 - Bad Request</option>
+                                            <option value="401">401 - Unauthorized</option>
+                                            <option value="402">402 - Payment Required</option>
+                                            <option value="403">403 - Forbidden</option>
+                                            <option value="404">404 - Not Found</option>
+                                            <option value="405">405 - Method Not Allowed</option>
+                                            <option value="406">406 - Not Acceptable</option>
+                                            <option value="407">407 - Proxy Authentication Required</option>
+                                            <option value="408">408 - Request Timeout</option>
+                                            <option value="409">409 - Conflict</option>
+                                            <option value="410">410 - Gone</option>
+                                            <option value="411">411 - Length Required</option>
+                                            <option value="412">412 - Precondition Failed</option>
+                                            <option value="413">413 - Request Entity Too Large</option>
+                                            <option value="414">414 - Request-URI Too Long</option>
+                                            <option value="415">415 - Unsupported Media Type</option>
+                                            <option value="416">416 - Requested Range Not Satisfiable</option>
+                                            <option value="417">417 - Expectation Failed</option>
+                                            <option value="419">419 - Authentication Timeout</option>
+                                            <option value="420">420 - Enhance Your Calm</option>
+                                            <option value="422">422 - Unprocessable Entity</option>
+                                            <option value="423">423 - Locked</option>
+                                            <option value="424">424 - Failed Dependency</option>
+                                            <option value="424">424 - Method Failure</option>
+                                            <option value="426">426 - Upgrade Required</option>
+                                            <option value="428">428 - Precondition Required</option>
+                                            <option value="429">429 - Too Many Requests</option>
+                                            <option value="431">431 - Request Header Fields Too Large</option>
+                                            <option value="444">444 - No Response</option>
+                                            <option value="449">449 - Retry With</option>
+                                            <option value="450">450 - Blocked by Windows Parental Controls</option>
+                                            <option value="451">451 - Unavailable For Legal Reasons</option>
+                                            <option value="451">451 - Redirect</option>
+                                            <option value="494">494 - Request Header Too Large</option>
+                                            <option value="495">495 - Cert Error</option>
+                                            <option value="496">496 - No Cert</option>
+                                            <option value="497">497 - HTTP to HTTPS</option>
+                                            <option value="500">500 - Internal Server Error</option>
+                                            <option value="501">501 - Not Implemented</option>
+                                            <option value="502">502 - Bad Gateway</option>
+                                            <option value="503">503 - Service Unavailable</option>
+                                            <option value="504">504 - Gateway Timeout</option>
+                                            <option value="505">505 - HTTP Version Not Supported</option>
+                                            <option value="506">506 - Variant Also Negotiates</option>
+                                            <option value="507">507 - Insufficient Storage</option>
+                                            <option value="508">508 - Loop Detected</option>
+                                            <option value="509">509 - Bandwidth Limit Exceeded</option>
+                                            <option value="510">510 - Not Extended</option>
+                                            <option value="511">511 - Network Authentication Required</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3 mt-3">
+                                        <label th:text="#{content}" for="content" class="form-label">Tipo de Contenido:</label>
+                                        <select class="form-select" id="content" name="content" required>
+                                            <option value="application/html" selected>application/html</option>
+                                            <option value="application/xml">application/xml</option>
+                                            <option value="application/json">application/json</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{body}" for="body">HTTP Cuerpo:</label>
+                                    <textarea placeholder='{&#10&#x09"msg": "Hello World"&#10}' class="form-control" rows="6" id="body" name="body"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{name}" for="nombre" class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre" name="nombre">
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label th:text="#{description}" for="description">Descripcion:</label>
+                                    <textarea class="form-control" rows="4" id="description" name="description" placeholder="Ingrese la descripcion"></textarea>
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-1 mb-3 mt-5 pt-1 form-group">
+                                        <input class="form-check-input" type="checkbox" id="check" name="check">
+                                    </div>
+                                    <div class="col-md-5 mb-3 mt-3 form-group">
+                                        <label th:text="#{delay}" for="expiration" class="form-label">Demora:</label>
+                                        <input style="background-color: lightgrey" min="0" type="number" class="form-control" id="delay" name="delay" value="0" readonly >
+                                    </div>
+                                    <div class="col-md-6 mb-3 mt-3 form-group">
+                                        <label th:text="#{expirate}" for="expiration" class="form-label">Expiracion:</label>
+                                        <select class="form-select" id="expiration" name="expiration" required>
+                                            <option value="0">1 hora</option>
+                                            <option value="1">1 dia</option>
+                                            <option value="2">1 semana</option>
+                                            <option value="3">1 mes</option>
+                                            <option value="4" selected>1 año</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3 d-grid">
+                                    <button type="button" onclick="sendForm()" class="btn btn-success btn-block">Crear</button>
+                                    <button id="submit" type="submit" style="display: none" ></button>
+                                </div>
+                            </form>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+
+<script>
+
+
+    function sendForm(){
+        var str = $("#headers").val();
+        if(str === ""){
+            str = "{}";
+        }
+
+        try {
+            JSON.parse(str);
+            $("#submit").click();
+        }
+        catch (err) {
+            window.alert("JSON NO valido en el HTTP Encabezado")
+        }
+
+    }
+
+    $('#check').change(
+        function(){
+            if (this.checked) {
+                $("#delay").prop("readonly",false);
+                $("#delay").css("background-color","");
+            } else {
+                $("#delay").prop("readonly",true);
+                $("#delay").val(0);
+                $("#delay").css("background-color","white");
+            }
+        }
+    )
+
+
+</script>
+
+</html>

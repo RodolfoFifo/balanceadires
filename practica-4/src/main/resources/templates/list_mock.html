@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html :: links"></span>
+    <span th:replace="base.html :: nav"></span>
+</head>
+<body>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div style="width: 90%" class="card my-5">
+            <div align="center" class="card-body my-5">
+                <div style="width: 70%"><h1>Lista de Mocks</h1><hr></div>
+                <table id="tabla" class="table table-bordered table-striped mt-2">
+                    <thead align="center">
+                    <tr>
+                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Acceso</th>
+                        <th>Endpoint</th>
+                        <th width="10%"></th>
+                    </tr>
+                    </thead>
+                    <tbody align="center">
+                    <tr style="cursor: pointer"  th:each="m:${mocks}">
+                        <td th:text="${m.getEstado()}"></td>
+                        <td th:text="${m.getName()}"></td>
+                        <td th:text="${m.getAccess()}"></td>
+                        <td th:text="'/' + ${m.getEndpoint()}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Acciones</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" th:href="'/mock/editar?id=' + ${m.getId()}">Editar</a>
+                                    <a class="dropdown-item" th:href="'/mock/eliminar?id=' + ${m.getId()}">Eliminar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

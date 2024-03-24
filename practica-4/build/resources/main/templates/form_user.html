@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html::links"></span>
+    <span th:replace="base.html::nav"></span>
+</head>
+<body>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div style="width: 90%" class="card my-5">
+                <div align="center" class="card-body my-5">
+                    <div style="width: 70%"><h1>Crear Usuario</h1><hr></d>
+                        <form id="form" method="post" action="/usuario/generar">
+                            <div class="col-md-12 mb-3 mt-3">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Ingrese un nombre" name="name" required>
+                            </div>
+                            <div class="col-md-12 mb-3 mt-3">
+                                <label for="user" class="form-label">Usuario:</label>
+                                <input type="text" class="form-control" id="user" placeholder="Ingrese un usuario" name="user" required>
+                            </div>
+                            <div class="col-md-12 mb-3 mt-3">
+                                <label for="pass" class="form-label">Contraseña:</label>
+                                <input type="password" class="form-control" id="pass" placeholder="Ingrese una contraseña" name="pass" required>
+                            </div>
+                            <div id="select" class="col-md-12 mb-3 mt-3">
+                                <label for="content" class="form-label">Rol:</label>
+                                    <select class="form-select" id="content" name="rol" required>
+                                        <option value="ROLE_USER" selected>Usuario</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-12 mb-3 mt-4 d-grid">
+                                <button type="submit" class="btn btn-success btn-block">Crear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function (){
+        var user = '[[${usuario}]]';
+
+        if(user !== 'admin'){
+            $("#select").hide();
+        }
+    })
+</script>
+
+</html>

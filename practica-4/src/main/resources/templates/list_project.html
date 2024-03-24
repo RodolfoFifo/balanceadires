@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html::links"></span>
+    <span th:replace="base.html::nav"></span>
+</head>
+<body>
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div style="width: 90%" class="card my-5">
+          <div align="center" class="card-body my-5">
+            <div style="width: 70%">
+                <h1>Lista Proyectos</h1><hr>
+                <div class="d-grid mt-2">
+                    <a th:href="'/project/generar?redirect=' + ${redirect}"  type="button" class="btn btn-success btn-block">Crear un nuevo proyecto</a>
+                </div>
+            </div>
+                <table id="tabla" class="table table-bordered table-striped mt-4">
+                    <thead align="center">
+                    <tr>
+                        <th>Path</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th width="10%"></th>
+                    </tr>
+                    </thead>
+                    <tbody align="center">
+                        <span th:if="${redirect == 'GENERAR_MOCK'}">
+                            <tr style="cursor: pointer" th:each="p:${proyecto}">
+                                <td th:onclick="window.location = '/mock/generar?id=' + '[[${p.getId()}]]'" th:text="${p.getPath()}"></td>
+                                <td th:onclick="window.location = '/mock/generar?id=' + '[[${p.getId()}]]'" th:text="${p.getNombre()}"></td>
+                                <td th:onclick="window.location = '/mock/generar?id=' + '[[${p.getId()}]]'" th:text="${p.getDescripcion()}"></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Acciones</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" th:href="'/project/editar?id=' + ${p.getId()} + '&redirect=' + ${redirect} ">Editar</a>
+                                            <a class="dropdown-item" th:href="'/project/eliminar?id=' + ${p.getId()} + '&redirect=' + ${redirect}">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </span>
+                        <span th:unless="${redirect == 'GENERAR_MOCK'}">
+                            <tr style="cursor: pointer" th:each="p:${proyecto}">
+                                <td th:onclick="window.location = '/mock/listado?id=' + '[[${p.getId()}]]'" th:text="'/'+${p.getPath()}"></td>
+                                <td th:onclick="window.location = '/mock/listado?id=' + '[[${p.getId()}]]'" th:text="${p.getNombre()}"></td>
+                                <td th:onclick="window.location = '/mock/listado?id=' + '[[${p.getId()}]]'" th:text="${p.getDescripcion()}"></td>
+                                <td onclick="">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Acciones</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" th:href="'/project/editar?id=' + ${p.getId()} + '&redirect=' + ${redirect} ">Editar</a>
+                                            <a class="dropdown-item" th:href="'/project/eliminar?id=' + ${p.getId()} + '&redirect=' + ${redirect}">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </span>
+                    </tbody>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

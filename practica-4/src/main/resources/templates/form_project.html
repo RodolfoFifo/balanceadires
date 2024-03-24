@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <span th:replace="base.html::links"></span>
+    <span th:replace="base.html::nav"></span>
+</head>
+<body>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div style="width: 90%" class="card my-5">
+                <div align="center" class="card-body my-5">
+                    <span th:if="${window == 'EDITAR_MOCK'}">
+                        <div style="width: 70%"><h1>Editar Proyecto</h1><hr></d>
+                            <form id="form2" method="post" th:action="'/project/editar?id=' + ${proyecto.getId()} + '&redirect=' + ${redirect}">
+                                <div class="col-md-12">
+                                    <label for="nombre" class="form-label">Nombre:</label>
+                                    <input th:value="${proyecto.getNombre()}" type="text" class="form-control" id="nombre" placeholder="Ingrese un nombre" name="nombre" required>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label for="description">Descripcion:</label>
+                                    <textarea placeholder='Ingrese una descripcion' class="form-control" rows="6" id="description" name="description">[[${proyecto.getDescripcion()}]]</textarea>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3 d-grid">
+                                    <button type="submit" class="btn btn-success btn-block">Generar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </span>
+                    <span th:unless="${window == 'EDITAR_MOCK'}">
+                        <div style="width: 70%"><h1>Crear un Proyecto</h1><hr></d>
+                            <form id="form" method="post" th:action="'/project/generar?redirect=' + ${redirect}">
+                                <div class="col-md-12">
+                                    <label for="nombre" class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese un nombre" name="nombre" required>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3">
+                                    <label for="description">Descripcion:</label>
+                                    <textarea placeholder='Ingrese una descripcion' class="form-control" rows="6" id="description" name="description"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3 mt-3 d-grid">
+                                    <button type="submit" class="btn btn-success btn-block">Crear </button>
+                                </div>
+                            </form>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
